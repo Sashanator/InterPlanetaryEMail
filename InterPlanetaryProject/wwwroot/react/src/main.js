@@ -107,7 +107,7 @@ class Main extends Component {
                         Download
                       </a>
                       <p>&nbsp;</p>
-                      <h2>Upload your file</h2>
+                      <h2>Upload your file, please!</h2>
                       <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                           <input id="name" type="file" onChange={this.captureFile}/>
