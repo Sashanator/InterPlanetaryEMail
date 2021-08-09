@@ -41,10 +41,10 @@ class Main extends Component {
             // * Fetch contract
             const contract = new web3.eth.Contract(Library.abi, networkData.address);
             this.setState({ contract });
-            const letterCount = await contract.methods.lettersToCount().call({ from: this.state.account });
+            const letterCount = await contract.methods.getReceivedMessagesCount().call({ from: this.state.account });
             console.log("Count of letters for you: ", letterCount);
             this.setState({ letterCount });
-            const letters = await contract.methods.getEmail().call({ from: this.state.account });
+            const letters = await contract.methods.getReceivedMessages().call({ from: this.state.account });
             this.setState({ letters }); 
             console.log("STATE", this.state.letters);
         } else {
@@ -84,7 +84,7 @@ class Main extends Component {
         const letterTo = this.to.current.value;
         const letterTheme = this.theme.current.value;
         const letterText = this.text.current.value;
-        this.state.contract.methods.sendEmail(letterTo, letterTheme, letterText, this.state.fileHash).send({ from: this.state.account });
+        this.state.contract.methods.sendMessage(letterTo, letterTheme, letterText, this.state.fileHash).send({ from: this.state.account });
         console.log("Submitted!");
     }
 

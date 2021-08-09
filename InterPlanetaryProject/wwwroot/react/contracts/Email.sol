@@ -14,12 +14,12 @@ contract Email {
     uint public letterID = 0;
     Letter[] public letters;
 
-    function sendEmail(address _to, string memory _theme, string memory _text, string memory _fileHash) public {
+    function sendMessage(address _to, string memory _theme, string memory _text, string memory _fileHash) public {
         letters.push(Letter(letterID, msg.sender, _to, _theme, _text, _fileHash));
         letterID++;
     }
 
-    function lettersToCount() public view returns(uint) {
+    function getReceivedMessagesCount() public view returns(uint) {
         uint result = 0;
         for (uint i = 0; i < letters.length; i++) {
             if (letters[i].to == msg.sender) {
@@ -29,8 +29,28 @@ contract Email {
         return result;
     }
 
-    function getEmail() public view returns (Letter[] memory) {
-        uint256 resultCount = lettersToCount();
+    function getSentMessagesCount() public view returns(uint) {
+        uint result = 0;
+        for (uint i = 0; i < letters.length; i++) {
+            if (letters[i].from == msg.sender) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    function getReceivedMessagesFromAddressCount(address _from) public view returns(uint) {
+        uint result = 0;
+        for (uint i = 0; i < letters.length; i++) {
+            if (letters[i].to == msg.sender && letters[i].from == _from) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    function getReceivedMessages() public view returns (Letter[] memory) {
+        uint256 resultCount = getReceivedMessagesCount();
 
         Letter[] memory result = new Letter[](resultCount);
         uint256 j = 0;
@@ -41,6 +61,34 @@ contract Email {
             }
         }
 
+        return result;
+    }
+
+    function getSentMessages() public view returns (Letter[] memory) {
+        uint256 resultCount = getSentMessagesCount();
+        
+        Letter[] memory result = new Letter[](resultCount);
+        uint256 j = 0;
+        for (uint i = 0; i < letters.length; i++) {
+            if (letters[i].from == msg.sender) {
+                result[j] = letters[i];
+                j++;
+            }
+        }
+        return result;
+    }
+
+    function getReceivedMessagesFromAddress(address _from) public view returns (Letter[] memory) {
+        uint256 resultCount = getReceivedMessagesFromAddressCount(_from);
+
+        Letter[] memory result = new Letter[](resultCount);
+        uint256 j = 0;
+        for (uint i = 0; i < letters.length; i++) {
+            if (letters[i].to == msg.sender && letters[i].from == _from) {
+                result[j] = letters[i];
+                j++;
+            }
+        }
         return result;
     }
 }
