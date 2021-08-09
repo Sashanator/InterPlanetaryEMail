@@ -4,31 +4,43 @@ pragma experimental ABIEncoderV2;
 
 contract Email {
     struct Letter {
+        uint id;
         address from;
         address to;
         string theme;
         string text;
         string fileHash;
     }
-
+    uint public letterID = 0;
     Letter[] public letters;
 
     function sendEmail(address _to, string memory _theme, string memory _text, string memory _fileHash) public {
-        letters.push(Letter(msg.sender, _to, _theme, _text, _fileHash));
+        letters.push(Letter(letterID, msg.sender, _to, _theme, _text, _fileHash));
+        letterID++;
+    }
+
+    function lettersToCount() public view returns(uint) {
+        uint result = 0;
+        for (uint i = 0; i < letters.length; i++) {
+            if (letters[i].to == msg.sender) {
+                result++;
+            }
+        }
+        return result;
     }
 
     function getEmail() public view returns (Letter[] memory) {
-        // Not working
-        // for (uint i = 0; i < letters.length; i++) {
-        //     if (address(letters[i].from) != msg.sender) { (HOW TO COMPARE 2 ADDRESSES?)
-        //         return letters[i]; it's old when I tried to return 1 letter 
-        //     }
-        // }
-        if (letters.length > 0) {
-            return letters;
+        uint256 resultCount = lettersToCount();
+
+        Letter[] memory result = new Letter[](resultCount);
+        uint256 j = 0;
+        for (uint i = 0; i < letters.length; i++) {
+            if (letters[i].to == msg.sender) {
+                result[j] = letters[i];
+                j++;
+            }
         }
-        Letter[] memory result = new Letter[](1);
-        result[0] = Letter(msg.sender, msg.sender, "FirstTest", "FirstTest", "FileHash");
+
         return result;
     }
 }

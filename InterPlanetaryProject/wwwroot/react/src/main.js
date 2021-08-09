@@ -24,7 +24,9 @@ class Main extends Component {
             account: '',
             contract: null,
             fileHash: null,
-            letter: [[]]
+            test: [],
+            letterCount: 0,
+            letters: [[]]
         };
     }
 
@@ -39,9 +41,12 @@ class Main extends Component {
             // * Fetch contract
             const contract = new web3.eth.Contract(Library.abi, networkData.address);
             this.setState({ contract });
-            const letter = await contract.methods.getEmail().call();
-            this.setState({ letter }); 
-            console.log("STATE", this.state.letter);
+            const letterCount = await contract.methods.lettersToCount().call({ from: this.state.account });
+            console.log("Count of letters for you: ", letterCount);
+            this.setState({ letterCount });
+            const letters = await contract.methods.getEmail().call({ from: this.state.account });
+            this.setState({ letters }); 
+            console.log("STATE", this.state.letters);
         } else {
             window.alert('Smart contract is not deployed to detected network!');
         }
@@ -97,9 +102,22 @@ class Main extends Component {
               return;
           }
       })
-  }
+    }
 
     render() {
+      // const divLetters = this.state.letters.map((lt) => <div key={lt[0]}>{lt.map((ltt) => <div>{ltt}</div>)}</div>);
+
+      const divLetters2 = this.state.letters.map((lt) => {
+        return (
+          <p>{lt.map((ltt) => {
+            return(
+              <div>{ltt}</div>
+            )
+          })}
+          </p>
+        )
+      })
+
         return (
             <div>
               <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -121,14 +139,35 @@ class Main extends Component {
                 <div className="row">
                   <main role="main" className="col-lg-12 d-flex text-center">
                     <div className="content mr-auto ml-auto">
-                      <h2>Your last letter:</h2>
+                      <h2>Your letters:</h2>
                       <div className="form-group">
-                        <p><text>From: {this.state.letter[0][0]}</text></p>
-                        <p><label>To: {this.state.letter[0][1]}</label></p>
-                        <p><label>Theme: {this.state.letter[0][2]}</label></p>
-                        <p><label>Text: {this.state.letter[0][3]}</label></p>
+                        <table className="table table-boarded">
+                          <tr>
+                            <th>ID</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Theme</th>
+                            <th>Text</th>
+                            <th>IPFS</th>
+                          </tr>
+                          {this.state.letters.map((letter) => (
+                            <tr>
+                              <td>{letter[0]}</td>
+                              <td>{letter[1]}</td>
+                              <td>{letter[2]}</td>
+                              <td>{letter[3]}</td>
+                              <td>{letter[4]}</td>
+                              <td><a href={`https://ipfs.infura.io/ipfs/${letter[5]}`}>FILE</a></td>
+                            </tr>
+                          ))}
+                        </table>
+                        {/* <p><label>ID: {this.state.letters[0][0]}</label></p>
+                        <p><label>From: {this.state.letters[0][1]}</label></p>
+                        <p><label>To: {this.state.letters[0][2]}</label></p>
+                        <p><label>Theme: {this.state.letters[0][3]}</label></p>
+                        <p><label>Text: {this.state.letters[0][4]}</label></p>
                         <p></p>
-                        <a href={`https://ipfs.infura.io/ipfs/${this.state.letter[0][4]}`}>File</a>
+                        <a href={`https://ipfs.infura.io/ipfs/${this.state.letters[0][5]}`}>File</a> */}
                       </div>
                       <h2>Send a new letter</h2>
                       <form onSubmit={this.onSubmit}>
