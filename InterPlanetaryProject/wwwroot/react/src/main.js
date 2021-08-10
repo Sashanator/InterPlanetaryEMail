@@ -4,6 +4,8 @@ import Library from "../abis/Email.json";
 
 const ipfsClient = require('ipfs-http-client');
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+var fileList = [];
+var fileHashes = [];
 
 class Main extends Component {
 
@@ -24,7 +26,6 @@ class Main extends Component {
             account: '',
             contract: null,
             fileHash: null,
-            test: [],
             letterCount: 0,
             letters: [[]]
         };
@@ -62,8 +63,18 @@ class Main extends Component {
         }
     }
 
-    // ! IPFS EXAMPLE
-    // ! `https://ipfs.infura.io/ipfs/fileHash`
+    // ? OK
+    onSubmit = (event) => {
+      event.preventDefault();
+      // * Store a letter in bc
+      const letterTo = this.to.current.value;
+      const letterTheme = this.theme.current.value;
+      const letterText = this.text.current.value;
+      this.state.contract.methods.sendMessage(letterTo, letterTheme, letterText, fileHashes).send({ from: this.state.account });
+      console.log("Submitted!");
+  }
+
+    
 
     // * OK
     captureFile = (event) => {
@@ -76,19 +87,10 @@ class Main extends Component {
           this.setState({ buffer: Buffer(reader.result) });
       };
     }
-
-    // ? OK
-    onSubmit = (event) => {
-        event.preventDefault();
-        // * Store a letter in bc
-        const letterTo = this.to.current.value;
-        const letterTheme = this.theme.current.value;
-        const letterText = this.text.current.value;
-        this.state.contract.methods.sendMessage(letterTo, letterTheme, letterText, this.state.fileHash).send({ from: this.state.account });
-        console.log("Submitted!");
-    }
-
+    
     // * OK
+    // ! IPFS EXAMPLE
+    // ! `https://ipfs.infura.io/ipfs/fileHash`
     onSubmitFile = (event) => {
       event.preventDefault();
       console.log("Submitted!");
@@ -104,19 +106,58 @@ class Main extends Component {
       })
     }
 
+    // * OK
+    captureFiles = (event) => {
+      event.preventDefault();
+      fileList = [];
+      // * Process file for IPFS send
+      const files = event.target.files;
+      console.log(files);
+      [].forEach.call(files, function(file) {
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onloadend = function() {
+          fileList.push(Buffer(reader.result));
+        }
+      });
+    }
+    
+    // * OK
+    // ! IPFS EXAMPLE
+    // ! `https://ipfs.infura.io/ipfs/fileHash`
+    onSubmitFiles = (event) => {
+      event.preventDefault();
+      console.log("Submitted!");
+      console.log(fileList);
+      // ! IPFS
+      fileList.map((file) => {
+        ipfs.add(file, (error, result) => {
+          console.log("IPFS RESULT: ", result);
+          const fileHash = result[0].hash;
+          fileHashes.push(fileHash);
+          if (error) {
+            console.error(error);
+            return;
+          }
+        })
+      })
+    }
+
+    
+
     render() {
       // const divLetters = this.state.letters.map((lt) => <div key={lt[0]}>{lt.map((ltt) => <div>{ltt}</div>)}</div>);
 
-      const divLetters2 = this.state.letters.map((lt) => {
-        return (
-          <p>{lt.map((ltt) => {
-            return(
-              <div>{ltt}</div>
-            )
-          })}
-          </p>
-        )
-      })
+      // const divLetters2 = this.state.letters.map((lt) => {
+      //   return (
+      //     <p>{lt.map((ltt) => {
+      //       return(
+      //         <div>{ltt}</div>
+      //       )
+      //     })}
+      //     </p>
+      //   )
+      // })
 
         return (
             <div>
@@ -152,15 +193,22 @@ class Main extends Component {
                           </tr>
                           {this.state.letters.map((letter) => (
                             <tr>
+                              {console.log("LETTER", letter.length == 0 ? "meme" : letter)}
                               <td>{letter[0]}</td>
                               <td>{letter[1]}</td>
                               <td>{letter[2]}</td>
                               <td>{letter[3]}</td>
                               <td>{letter[4]}</td>
-                              <td><a href={`https://ipfs.infura.io/ipfs/${letter[5]}`}>FILE</a></td>
+                              {/* <td>{letter[5]}</td> */}
+                              {
+                                letter.length > 0 &&
+                                <td><ul>{letter[5].map((f) => <li><a href={`https://ipfs.infura.io/ipfs/${f}`}>FILE</a></li>)}</ul></td>
+                              }
+                              {/* <td><a href={`https://ipfs.infura.io/ipfs/${letter[5]}`}>FILE</a></td> */}
                             </tr>
                           ))}
                         </table>
+                        {/* <td><ul>{letter[5].map((f) => <li><a href={`https://ipfs.infura.io/ipfs/${f}`}>FILE</a></li>)}</ul></td> */}
                         {/* <p><label>ID: {this.state.letters[0][0]}</label></p>
                         <p><label>From: {this.state.letters[0][1]}</label></p>
                         <p><label>To: {this.state.letters[0][2]}</label></p>
@@ -178,9 +226,9 @@ class Main extends Component {
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
                       </form>
-                      <form onSubmit={this.onSubmitFile}>
+                      <form onSubmit={this.onSubmitFiles}>
                           <div className="form-group">
-                            <input id="name" type="file" onChange={this.captureFile}/>
+                            <input id="name" type="file" multiple onChange={this.captureFiles}/>
                           </div>
                           <button type="submit" className="btn btn-success">Add</button>
                       </form>

@@ -9,13 +9,13 @@ contract Email {
         address to;
         string theme;
         string text;
-        string fileHash;
+        string[] fileHashes;
     }
     uint public letterID = 0;
     Letter[] public letters;
 
-    function sendMessage(address _to, string memory _theme, string memory _text, string memory _fileHash) public {
-        letters.push(Letter(letterID, msg.sender, _to, _theme, _text, _fileHash));
+    function sendMessage(address _to, string memory _theme, string memory _text, string[] memory _fileHashes) public {
+        letters.push(Letter(letterID, msg.sender, _to, _theme, _text, _fileHashes));
         letterID++;
     }
 
