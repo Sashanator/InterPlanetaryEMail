@@ -1,4 +1,4 @@
-﻿import React, {Component} from "react";
+import React, {Component} from "react";
 import Web3 from "web3";
 import Library from "../abis/Email.json"; 
 
@@ -42,12 +42,6 @@ class Main extends Component {
             // * Fetch contract
             const contract = new web3.eth.Contract(Library.abi, networkData.address);
             this.setState({ contract });
-            const letterCount = await contract.methods.getReceivedMessagesCount().call({ from: this.state.account });
-            console.log("Count of letters for you: ", letterCount);
-            this.setState({ letterCount });
-            const letters = await contract.methods.getReceivedMessages().call({ from: this.state.account });
-            this.setState({ letters }); 
-            console.log("STATE", this.state.letters);
         } else {
             window.alert('Smart contract is not deployed to detected network!');
         }
@@ -73,38 +67,6 @@ class Main extends Component {
       this.state.contract.methods.sendMessage(letterTo, letterTheme, letterText, fileHashes).send({ from: this.state.account });
       console.log("Submitted!");
   }
-
-    
-
-    // * OK
-    captureFile = (event) => {
-      event.preventDefault();
-      // * Process file for IPFS send
-      const reader = new window.FileReader();
-      const file = event.target.files[0];
-      reader.readAsArrayBuffer(file);
-      reader.onloadend = () => {
-          this.setState({ buffer: Buffer(reader.result) });
-      };
-    }
-    
-    // * OK
-    // ! IPFS EXAMPLE
-    // ! `https://ipfs.infura.io/ipfs/fileHash`
-    onSubmitFile = (event) => {
-      event.preventDefault();
-      console.log("Submitted!");
-      // ! IPFS
-      ipfs.add(this.state.buffer, (error, result) => {
-          console.log("IPFS result", result);
-          const fileHash = result[0].hash;
-          this.setState({ fileHash });
-          if (error) {
-              console.error(error);
-              return;
-          }
-      })
-    }
 
     // * OK
     captureFiles = (event) => {
@@ -147,14 +109,6 @@ class Main extends Component {
         return (
             <div>
               <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-                <a
-                  className="navbar-brand col-sm-3 col-md-2 mr-0"
-                  href="http://intership.space"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ssorin Email Center
-                </a>
                 <ul className="navbar-nav px-3">
                   <li className="nav-item text-nowrap d-none d-sm-none d-sm-block"> 
                     <small className="text-white">{this.state.account}</small>
@@ -165,33 +119,6 @@ class Main extends Component {
                 <div className="row">
                   <main role="main" className="col-lg-12 d-flex text-center">
                     <div className="content mr-auto ml-auto">
-                      <h2>Your letters:</h2>
-                      <div className="form-group">
-                        <table className="table table-boarded">
-                          <tr>
-                            <th>ID</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Theme</th>
-                            <th>Text</th>
-                            <th>IPFS</th>
-                          </tr>
-                          {this.state.letters.map((letter) => (
-                            <tr>
-                              {console.log("LETTER", letter.length == 0 ? "meme" : letter)}
-                              <td>{letter[0]}</td>
-                              <td>{letter[1]}</td>
-                              <td>{letter[2]}</td>
-                              <td>{letter[3]}</td>
-                              <td>{letter[4]}</td>
-                              {
-                                letter.length > 0 &&
-                                <td><ul>{letter[5].map((f) => <li><a href={`https://ipfs.infura.io/ipfs/${f}`}>FILE</a></li>)}</ul></td>
-                              }
-                            </tr>
-                          ))}
-                        </table>
-                      </div>
                       <h2>Send a new letter</h2>
                       <form onSubmit={this.onSubmit}>
                         <div className="form-group">
