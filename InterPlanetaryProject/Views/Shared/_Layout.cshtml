@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - InterPlanetaryProject</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/menu.css" />
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap'); </style>
 </head>
 <body>
     <nav class="navigation">
@@ -18,13 +20,15 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - InterPlanetaryProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div style="font-family: 'Abril Fatface', cursive; text-align: center; color: darkslategray" id="address" class="container">
+            Sashanator
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/button.js"></script>
+    <script src="~/js/text-input.js"></script>
     @RenderSection("reactScript", required: false)
     @RenderSection("emailScript", required: false)
 </body>

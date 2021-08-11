@@ -41,6 +41,13 @@ class Main extends Component {
     async componentDidMount() {
         const letters = await this.state.contract.methods.getReceivedMessagesFromAddress(this.state.address).call({ from: this.state.account });
         this.setState({ letters });
+
+        // const script = document.createElement("script");
+
+        // script.src = "https://use.typekit.net/foobar.js";
+        // script.async = true;
+
+        // document.body.appendChild(script);
     }
 
     async componentDidUpdate() {
@@ -67,54 +74,37 @@ class Main extends Component {
       }
     }
 
-    // TODO: Fix --> Everything!
     render() {
+      document.getElementById('address').textContent = `${this.state.account}`;
         return (
-            <div>
-              <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-                <ul className="navbar-nav px-3">
-                  <li className="nav-item text-nowrap d-none d-sm-none d-sm-block"> 
-                    <small className="text-white">{this.state.account}</small>
-                  </li>
-                </ul>
-              </nav>
-              <div className="container-fluid mt-5">
-              <main role="main" className="col-lg-12 d-flex text-center">
-                    <div className="content mr-auto ml-auto">
-                        <form id="form-address" onSubmit={this.onSubmit}>
-                            <input ref={this.addressFrom} type="text" placeholder="Enter address" id="addressFrom"/>
-                            <button className="btn btn-danger" type="submit">Find</button>
-                        </form>  
-                      <h2>From this address letters:</h2>
-                      <div className="form-group">
-                        <table className="table table-boarded">
+          <div>
+            <form onSubmit={this.onSubmit}>
+              <input ref={this.addressFrom} type="text" placeholder="Enter address"/>
+              <button className="bubbly-button" type="submit">Find</button>
+            </form>
+            <div className="table-users">
+              <div className="header">Letters</div>
+              <table cellspacing="0">
                           <tr>
-                            <th>ID</th>
-                            <th>From</th>
-                            <th>To</th>
                             <th>Theme</th>
                             <th>Text</th>
                             <th>IPFS</th>
+                            <th>From</th>
                           </tr>
                           {this.state.letters.map((letter) => (
                             <tr>
-                              <td>{letter[0]}</td>
-                              <td>{letter[1]}</td>
-                              <td>{letter[2]}</td>
                               <td>{letter[3]}</td>
                               <td>{letter[4]}</td>
                               {
                                 letter.length > 0 &&
                                 <td><ul>{letter[5].map((f) => <li><a href={`https://ipfs.infura.io/ipfs/${f}`}>FILE</a></li>)}</ul></td>
                               }
+                              <td className="cell expand-maximum-on-hover">{letter[1]}</td>
                             </tr>
                           ))}
                         </table>
-                      </div>
-                    </div>
-                  </main>
-              </div>
             </div>
+          </div>
           );
     }
 }

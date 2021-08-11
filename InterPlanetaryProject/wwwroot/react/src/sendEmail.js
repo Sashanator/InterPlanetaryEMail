@@ -106,39 +106,25 @@ class Main extends Component {
     }
 
     render() {
+      document.getElementById('address').textContent = `${this.state.account}`;
         return (
-            <div>
-              <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-                <ul className="navbar-nav px-3">
-                  <li className="nav-item text-nowrap d-none d-sm-none d-sm-block"> 
-                    <small className="text-white">{this.state.account}</small>
-                  </li>
-                </ul>
-              </nav>
-              <div className="container-fluid mt-5">
-                <div className="row">
-                  <main role="main" className="col-lg-12 d-flex text-center">
-                    <div className="content mr-auto ml-auto">
-                      <h2>Send a new letter</h2>
-                      <form onSubmit={this.onSubmit}>
-                        <div className="form-group">
-                          <input placeholder="To" ref={this.to} id="toAddress" type="text"/>
-                          <input placeholder="Theme" ref={this.theme} id="theme" type="text"/>
-                          <input placeholder="Text" ref={this.text} id="letterText" type="text"/>
-                        </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                      </form>
-                      <form onSubmit={this.onSubmitFiles}>
-                          <div className="form-group">
-                            <input id="name" type="file" multiple onChange={this.captureFiles}/>
-                          </div>
-                          <button type="submit" className="btn btn-success">Add</button>
-                      </form>
-                    </div>
-                  </main>
-                </div>
-              </div>
+          <div className="content mr-auto ml-auto">
+          <h2>Send a new letter</h2>
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <input placeholder="To" ref={this.to} id="toAddress" type="text"/>
+              <input placeholder="Theme" ref={this.theme} id="theme" type="text"/>
+              <input placeholder="Text" ref={this.text} id="letterText" type="text"/>
             </div>
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
+          <form onSubmit={this.onSubmitFiles}>
+              <div className="form-group">
+                <input id="name" type="file" multiple onChange={this.captureFiles}/>
+              </div>
+              <button type="submit" className="btn btn-success">Add</button>
+          </form>
+        </div>
           );
     }
 }

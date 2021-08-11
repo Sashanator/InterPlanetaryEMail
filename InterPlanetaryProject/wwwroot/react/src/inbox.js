@@ -11,9 +11,6 @@ class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.to = React.createRef();
-        this.theme = React.createRef();
-        this.text = React.createRef();
 
         this.state = {
             account: '',
@@ -48,8 +45,8 @@ class Main extends Component {
         }
     }
 
-    // TODO: Fix --> Return only main components!
     render() {
+      document.getElementById('address').textContent = `${this.state.account}`;
         return (
             <div className="table-users">
               <div className="header">Letters</div>
