@@ -11,12 +11,11 @@ class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.to = React.createRef();
-        this.theme = React.createRef();
-        this.text = React.createRef();
+        this.addressFrom = React.createRef();
 
         this.state = {
             account: '',
+            address: '',
             contract: null,
             letters: [[]]
         };
@@ -38,6 +37,16 @@ class Main extends Component {
             window.alert('Smart contract is not deployed to detected network!');
         }
     }
+    
+    async componentDidMount() {
+        const letters = await this.state.contract.methods.getReceivedMessagesFromAddress(this.state.address).call({ from: this.state.account });
+        this.setState({ letters });
+    }
+
+    async componentDidUpdate() {
+        const letters = await this.state.contract.methods.getReceivedMessagesFromAddress(this.state.address).call({ from: this.state.account });
+        this.setState({ letters });
+    }
 
     async loadWeb3() {
         if (window.ethereum) {
@@ -46,6 +55,16 @@ class Main extends Component {
         } else {
             window.alert("Use Metamask!");
         }
+    }
+
+    onSubmit = (event) => {
+      event.preventDefault();
+      const address = this.addressFrom.current.value;
+      if (address.length > 0) {
+        this.setState({ address });
+      } else {
+        window.alert("Enter address!");
+      }
     }
 
     // TODO: Fix --> Everything!
@@ -62,8 +81,8 @@ class Main extends Component {
               <div className="container-fluid mt-5">
               <main role="main" className="col-lg-12 d-flex text-center">
                     <div className="content mr-auto ml-auto">
-                        <form id="form-address">
-                            <input type="text" placeholder="Enter address" id="addressFrom"/>
+                        <form id="form-address" onSubmit={this.onSubmit}>
+                            <input ref={this.addressFrom} type="text" placeholder="Enter address" id="addressFrom"/>
                             <button className="btn btn-danger" type="submit">Find</button>
                         </form>  
                       <h2>From this address letters:</h2>

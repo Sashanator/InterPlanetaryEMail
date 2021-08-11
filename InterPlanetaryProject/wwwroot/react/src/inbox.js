@@ -62,7 +62,7 @@ class Main extends Component {
               <div className="container-fluid mt-5">
               <main role="main" className="col-lg-12 d-flex text-center">
                     <div className="content mr-auto ml-auto">
-                      <h2>Your letters:</h2>
+                      <h2>Your letters</h2>
                       <div className="form-group">
                         <table className="table table-boarded">
                           <tr>
