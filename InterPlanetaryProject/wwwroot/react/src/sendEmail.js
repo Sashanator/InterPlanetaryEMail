@@ -94,7 +94,6 @@ class Main extends Component {
     }
 
     render() {
-      // document.getElementById('address').textContent = `${this.state.account}`;
         return (
         <div>
           <html>

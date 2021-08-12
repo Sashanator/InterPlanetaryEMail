@@ -1,21 +1,22 @@
-﻿<html>
+﻿@{
+    ViewData["Title"] = "Address filter";
+}
+<html>
 <head>
-    <title>
-        Filter
-    </title>
-    <link rel="stylesheet" href="~/css/table.css" />
-    <link rel="stylesheet" href="~/css/search-button.css" />
+    <title></title>
+    <link rel="stylesheet" href="~/css/table.css"/>
+    <link rel="stylesheet" href="~/css/search-button.css"/>
 </head>
 <body>
-<div style="align-content: center" id="root"></div>
-@section emailScript
+    <div style="align-content: center" id="root"></div>
+    @section emailScript
 {
-    <script src="~/react/dist/filterBundle.js"></script>
-}
-<footer class="border-top footer text-muted">
-    <div style="font-family: 'Abril Fatface', cursive; text-align: center; color: darkslategray" id="address" class="container">
-        Sashanator
-    </div>
-</footer>
+        <script src="~/react/dist/filterBundle.js"></script>
+    }
+    <footer class="border-top footer text-muted">
+        <div style="font-family: 'Abril Fatface', cursive; text-align: center; color: darkslategray" id="address" class="container">
+            Sashanator
+        </div>
+    </footer>
 </body>
 </html>
