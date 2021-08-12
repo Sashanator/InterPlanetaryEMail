@@ -76,12 +76,17 @@ class Main extends Component {
 
     render() {
       document.getElementById('address').textContent = `${this.state.account}`;
+      
         return (
           <div>
-            <form onSubmit={this.onSubmit}>
-              <input ref={this.addressFrom} type="text" placeholder="Enter address"/>
-              <button className="bubbly-button" type="submit">Find</button>
-            </form>
+            <div>
+              <section className="webdesigntuts-workshop">
+                <form onSubmit={this.onSubmit}>		    
+                  <input ref={this.addressFrom} type="search" placeholder="What are you looking for?"/>		    	
+                  <button type="submit">Search</button>
+                </form>
+              </section>
+            </div>
             <div className="table-users">
               <div className="header">Letters</div>
               <table cellspacing="0">
