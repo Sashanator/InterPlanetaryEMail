@@ -5,7 +5,7 @@ module.exports = {
     entry: "./src/app.js",  
     output: {  
         path: __dirname + "/dist",  
-        filename: "filterBundle.js",  
+        filename: "sendEmailBundle.js",  
     },  
     watch: true,  
     module: {  

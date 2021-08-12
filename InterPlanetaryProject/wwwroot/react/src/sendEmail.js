@@ -4,7 +4,6 @@ import Library from "../abis/Email.json";
 
 const ipfsClient = require('ipfs-http-client');
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
-var fileList = [];
 var fileHashes = [];
 
 class Main extends Component {
@@ -69,9 +68,10 @@ class Main extends Component {
   }
 
     // * OK
+    // ! IPFS EXAMPLE
+    // ! `https://ipfs.infura.io/ipfs/fileHash`
     captureFiles = (event) => {
       event.preventDefault();
-      fileList = [];
       // * Process file for IPFS send
       const files = event.target.files;
       console.log(files);
@@ -79,30 +79,18 @@ class Main extends Component {
         var reader = new FileReader();
         reader.readAsArrayBuffer(file);
         reader.onloadend = function() {
-          fileList.push(Buffer(reader.result));
+          // ! IPFS 
+          ipfs.add(Buffer(reader.result), (error, result) => {
+            console.log("IPFS RESULT: ", result);
+            const fileHash = result[0].hash;
+            fileHashes.push(fileHash);
+            if (error) {
+              console.error(error);
+              return;
+            }
+          });
         }
       });
-    }
-    
-    // * OK
-    // ! IPFS EXAMPLE
-    // ! `https://ipfs.infura.io/ipfs/fileHash`
-    onSubmitFiles = (event) => {
-      event.preventDefault();
-      console.log("Submitted!");
-      console.log(fileList);
-      // ! IPFS
-      fileList.map((file) => {
-        ipfs.add(file, (error, result) => {
-          console.log("IPFS RESULT: ", result);
-          const fileHash = result[0].hash;
-          fileHashes.push(fileHash);
-          if (error) {
-            console.error(error);
-            return;
-          }
-        })
-      })
     }
 
     render() {
