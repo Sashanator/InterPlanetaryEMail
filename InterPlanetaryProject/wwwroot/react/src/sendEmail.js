@@ -94,24 +94,31 @@ class Main extends Component {
     }
 
     render() {
-      document.getElementById('address').textContent = `${this.state.account}`;
+      // document.getElementById('address').textContent = `${this.state.account}`;
         return (
-          <div className="content mr-auto ml-auto">
-          <h2>Send a new letter</h2>
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <input placeholder="To" ref={this.to} id="toAddress" type="text"/>
-              <input placeholder="Theme" ref={this.theme} id="theme" type="text"/>
-              <input placeholder="Text" ref={this.text} id="letterText" type="text"/>
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </form>
-          <form onSubmit={this.onSubmitFiles}>
-              <div className="form-group">
-                <input id="name" type="file" multiple onChange={this.captureFiles}/>
+        <div>
+          <html>
+            <head>
+              <link href='https://fonts.googleapis.com/css?family=Lobster|Raleway' rel='stylesheet' type='text/css'/>
+            </head>
+            <body>
+              <div className="header">
+                New Message  
               </div>
-              <button type="submit" className="btn btn-success">Add</button>
-          </form>
+              <div id="form" className="main-circle">
+                <div className="writing">
+                  &#9997;
+                </div>
+                <form id="message" onSubmit={this.onSubmit}>
+                  <input ref={this.to} type="text" name="address" placeholder="Address" className="name"/><br></br>
+                  <input ref={this.theme} type="text" name="theme" placeholder="Theme" className="e-mail"/><br></br>
+                  <input ref={this.text} name="message" className="message" placeholder="Message"/><br></br>
+                  <div className="file"><label></label><input type="file" multiple onChange={this.captureFiles}/></div><br></br>
+                  <button className="button" type="submit">Send</button>
+                </form>
+              </div>
+            </body>
+          </html> 
         </div>
           );
     }

@@ -1,0 +1,128 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #006363;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    display: none;
+}
+
+.main-circle {
+    background: #FF4040;
+    width: 250px;
+    height: 250px;
+    border-radius: 10%;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 30;
+}
+
+.writing {
+    font-size: 3em;
+    width: 48px;
+    margin: auto;
+}
+
+form {
+    margin: auto;
+    width: 205px;
+}
+
+.name,
+.e-mail,
+.message {
+    font-family: Raleway;
+    width: 200px;
+    border-radius: 5px;
+}
+
+    .name:focus,
+    .e-mail:focus,
+    .message:focus {
+        background: #fceabb;
+        outline: 0;
+    }
+
+.name,
+.e-mail {
+    height: 18px;
+    font-size: 1em;
+    margin: 0 0 7px;
+}
+
+.message {
+    height: 60px;
+    font-size: 1em;
+    margin: 3px auto 10px;
+    resize: none;
+}
+
+/*Display  Desktop for desktop*/
+
+@media only screen and (min-width: 557px) {
+
+
+    .header {
+        display: block;
+        font: 5em Lobster, san-serif;
+        font-family: 'Fugaz One', cursive;
+        width: 550px;
+        margin: 25px 295px 30px;
+        padding: 15px 0px 15px;
+    }
+
+    .main-circle {
+        display: block;
+        width: 500px;
+        height: 500px;
+        padding: 150px 50px 50px;
+        margin: -15px auto 160px;
+        border-radius: 50%;
+    }
+
+    .writing {
+        font-size: 6em;
+        margin: -80px 145px 60px;
+    }
+
+    form {
+        margin: 0px 50px 20px 20px;
+    }
+
+    .name,
+    .e-mail,
+    .message {
+        width: 350px;
+        border-radius: 5px;
+    }
+
+    .name,
+    .e-mail {
+        height: 30px;
+        font-size: 1.3em;
+        margin: 0 0 5px;
+        font-family: 'Michroma', sans-serif;
+    }
+
+    .message {
+        height: 100px;
+        font-size: 1.2em;
+        font-family: 'Michroma', sans-serif;
+        overflow-wrap: break-word;
+        margin-top: 5px;
+    }
+}
