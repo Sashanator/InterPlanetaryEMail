@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "MessageSent";
+}
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Success Modal with Animation</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="~/css/message-sent-success.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="background"></div>
+<div class="container">
+    <div class="row">
+        <div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">
+            <div class="icon">
+                <span class="glyphicon glyphicon-ok"></span>
+            </div>
+            <!--/.icon-->
+            <h1>Success!</h1>
+            <p>Your message was sent with blockchain network!</p>
+            <a asp-controller="Mail" asp-action="SendMail"><button type="button" class="redo btn">OK</button></a>
+            <span class="change">-- Click OK to return --</span>
+        </div>
+        <!--/.success-->
+    </div>
+</div>
+<!--/.container-->
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script  src="~/js/message-sent-success.js"></script>
+
+</body>
+</html>

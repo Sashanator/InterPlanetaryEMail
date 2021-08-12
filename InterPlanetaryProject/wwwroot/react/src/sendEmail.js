@@ -63,8 +63,10 @@ class Main extends Component {
       const letterTo = this.to.current.value;
       const letterTheme = this.theme.current.value;
       const letterText = this.text.current.value;
-      this.state.contract.methods.sendMessage(letterTo, letterTheme, letterText, fileHashes).send({ from: this.state.account });
-      console.log("Submitted!");
+      this.state.contract.methods.sendMessage(letterTo, letterTheme, letterText, fileHashes).send({ from: this.state.account }).then((r) => {
+        return window.location.replace("/Mail/MessageSent");
+      });
+      console.log("Message sent!");
   }
 
     // * OK

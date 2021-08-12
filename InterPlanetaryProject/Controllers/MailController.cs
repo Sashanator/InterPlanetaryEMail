@@ -37,5 +37,10 @@ namespace InterPlanetaryProject.Controllers
         {
             return View();
         }
+
+        public IActionResult MessageSent()
+        {
+            return View();
+        }
     }
 }
