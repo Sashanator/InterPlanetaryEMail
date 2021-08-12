@@ -94,7 +94,6 @@ class Main extends Component {
                             <th>Theme</th>
                             <th>Text</th>
                             <th>IPFS</th>
-                            <th>From</th>
                           </tr>
                           {this.state.letters.map((letter) => (
                             <tr>
@@ -104,7 +103,6 @@ class Main extends Component {
                                 letter.length > 0 &&
                                 <td><ul>{letter[5].map((f) => <li><a href={`https://ipfs.infura.io/ipfs/${f}`}>FILE</a></li>)}</ul></td>
                               }
-                              <td className="cell expand-maximum-on-hover">{letter[1]}</td>
                             </tr>
                           ))}
                         </table>
