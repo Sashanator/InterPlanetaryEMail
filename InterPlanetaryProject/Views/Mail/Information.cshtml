@@ -1,13 +1,157 @@
 ﻿
 @{
-    ViewData["Title"] = "Information";
+    Layout = null;
 }
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title></title>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans%3A400%2C400italic%2C600%2C700%2C700italic%7COswald%3A400%2C300%7CVollkorn%3A400%2C400italic'>
+    <link rel="stylesheet" href="~/css/info-page-bg.css">
+
 </head>
 <body>
-    
+    <!-- partial:index.partial.html -->
+    <main class="main-content">
+        <section class="slideshow">
+            <div class="slideshow-inner">
+                <div class="slides">
+                    <div class="slide is-active ">
+                        <div class="slide-content">
+                            <div class="caption">
+                                <div class="title">What is this website about?</div>
+                                <div class="text">
+                                    <p>
+                                        A small but ambitious project representing a decentralized email service — InterPlanetaryEMail (IPEM).
+                                        See what features it provides!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image-container">
+                            <img src="~/images/product.jpg" alt="" class="image" />
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                            <div class="caption">
+                                <div class="title">Using Blockchain technology</div>
+                                <div class="text">
+                                    <p>
+                                        Storing and sending letters was "taken over" by blockchain technology, using Ethereum Smart Contracts to write algorithms. Its use gives us the following advantages:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            Decentralization — decisions regarding the operation of such a network are made in the most democratic way, and the network itself is extremely stable. Blockchain is extremely difficult to hack, it is not subject to censorship, and the management of a single company is impossible.
+                                        </li>
+                                        <li>
+                                            Data safety — Multiple data duplication among its participants guarantees the safety and invariability of the information entered into the blockchain.
+                                        </li>
+                                        <li>
+                                            High speed of transactions and reduction of transaction costs — due to the fact that blockchain networks are peer-to-peer, i.e. transactions take place directly between users
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image-container">
+                            <img src="~/images/blockchain.jpg" alt="" class="image" />
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                            <div class="caption">
+                                <div class="title">Using IPFS technology</div>
+                                <div class="text">
+                                    <p>
+                                        We use IPFS (InterPlanetaryFileSystem) — a new technology that allows you to store files in a decentralized way! And here are the benefits it gives:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            IPFS makes it possible to efficiently distribute high volumes of data without duplication.
+                                        </li>
+                                        <li>
+                                            IPFS makes it simple to set up resilient networks for mirroring data, and thanks to content addressing, files stored using IPFS are automatically versioned.
+                                        </li>
+                                        <li>
+                                            IPFS powers the creation of diversely resilient networks that enable persistent availability — with or without internet backbone connectivity.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image-container">
+                            <img src="~/images/ipfs.jpg" alt="" class="image" />
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                            <div class="caption">
+                                <div class="title">Era of the New Internet</div>
+                                <div class="text">
+                                    <p>
+                                        What is the advantage of our product?
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            You don't need to register — just connect using the MetaMask extension for Google Chrome!
+                                        </li>
+                                        <li>
+                                            Simple, but at the same time stylish, not overloaded with unnecessary functionality, interface
+                                        </li>
+                                        <li>
+                                            High security and speed of work due to the use of the latest decentralized technologies
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a asp-controller="Mail" asp-action="Inbox" class="btn">
+                                    <span class="btn-inner">Get started!</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="image-container">
+                            <img src="~/images/last-slide.jpg" alt="" class="image" />
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <div class="item is-active">
+                        <span class="icon">1</span>
+                    </div>
+                    <div class="item">
+                        <span class="icon">2</span>
+                    </div>
+                    <div class="item">
+                        <span class="icon">3</span>
+                    </div>
+                    <div class="item">
+                        <span class="icon">4</span>
+                    </div>
+                </div>
+                <div class="arrows">
+                    <div class="arrow prev">
+                        <span class="svg svg-arrow-left">
+                            <svg version="1.1" id="svg4-Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="14px" height="26px" viewBox="0 0 14 26" enable-background="new 0 0 14 26" xml:space="preserve"> <path d="M13,26c-0.256,0-0.512-0.098-0.707-0.293l-12-12c-0.391-0.391-0.391-1.023,0-1.414l12-12c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414L2.414,13l11.293,11.293c0.391,0.391,0.391,1.023,0,1.414C13.512,25.902,13.256,26,13,26z" /> </svg>
+                            <span class="alt sr-only"></span>
+                        </span>
+                    </div>
+                    <div class="arrow next">
+                        <span class="svg svg-arrow-right">
+                            <svg version="1.1" id="svg5-Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="14px" height="26px" viewBox="0 0 14 26" enable-background="new 0 0 14 26" xml:space="preserve"> <path d="M1,0c0.256,0,0.512,0.098,0.707,0.293l12,12c0.391,0.391,0.391,1.023,0,1.414l-12,12c-0.391,0.391-1.023,0.391-1.414,0s-0.391-1.023,0-1.414L11.586,13L0.293,1.707c-0.391-0.391-0.391-1.023,0-1.414C0.488,0.098,0.744,0,1,0z" /> </svg>
+                            <span class="alt sr-only"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- partial -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
+    <script src="~/js/info-page.js"></script>
+
 </body>
 </html>
