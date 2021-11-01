@@ -3,6 +3,7 @@
 
 ## Overview
 InterPlanetaryEMail is an email service developed on the basis of two technologies for building distributed systems: blockchain and IPFS. This project is the result of an internship at Luleå University of Technology (Sweden).
+Presentation for Swedish colleagues: https://www.canva.com/design/DAEoCDRQdFo/aDp-pCqPl8ToSZllgwHQ0Q/view?utm_content=DAEoCDRQdFo&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton
 
 ## Features
 
